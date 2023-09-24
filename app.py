@@ -642,7 +642,7 @@ def Supervisor():
 @app.route("/Form")
 def Form():
     cursor = db_conn.cursor()
-    cursor.execute('SELECT name, id FROM Student')
+    cursor.execute('SELECT name, studentID FROM Student')
     data = cursor.fetchall()
     cursor.close()
 
