@@ -633,7 +633,7 @@ def approveStudentApplication(id):
 @app.route("/Supervisor")
 def Supervisor():
     cursor = db_conn.cursor()
-    cursor.execute('SELECT * FROM Student')
+    cursor.execute('SELECT name, studentID FROM Student')
     data = cursor.fetchall()
     cursor.close()
 
