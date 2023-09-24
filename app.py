@@ -3,6 +3,7 @@ from pymysql import connections
 import os
 import boto3
 from config import *
+import datetime
 
 app = Flask(__name__)
 app.secret_key = "Assignment"
@@ -171,6 +172,7 @@ def deleteCompany(id):
     cursor.execute('DELETE FROM Company WHERE name = %s', id)
     flash('Company Deleted Successfully')
     db_conn.commit() 
+    cursor.close()
     return redirect(url_for('CompanyAdministration'))
 
 @app.route('/CompanyRegistration')
@@ -194,6 +196,7 @@ def rejectCompany(name):
         """, (status_change, name))
     flash('Company Rejected Successfully')
     db_conn.commit() 
+    cursor.close()
     return redirect(url_for('CompanyRegistration'))
 
 @app.route('/approveCompany/<string:name>', methods = ['POST', 'GET'])
@@ -207,6 +210,7 @@ def approveCompany(name):
         """, (status_change, name))
     flash('Company Approved Successfully')
     db_conn.commit() 
+    cursor.close()
     return redirect(url_for('CompanyRegistration'))
 
 # Student 
@@ -231,6 +235,7 @@ def rejectStudent(id):
         """, (status_change, id))
     flash('Student Rejected Successfully')
     db_conn.commit() 
+    cursor.close()
     return redirect(url_for('StudentRegistration'))
 
 @app.route('/approveStudent/<string:id>', methods = ['POST', 'GET'])
@@ -244,6 +249,7 @@ def approveStudent(id):
         """, (status_change, id))
     flash('Student Approved Successfully')
     db_conn.commit() 
+    cursor.close()
     return redirect(url_for('StudentRegistration'))
 
 
@@ -341,6 +347,23 @@ def CompanyDetailsPage(id):
     company = cursor.fetchone()
     cursor.close()
     return render_template('CompanyDetailsPage.html',company=company)
+
+
+@app.route("/ApplyJob/<string:id>")
+def ApplyJob(id):
+    cursor = db_conn.cursor()
+    user = session['user'][0]
+    current_date_time = datetime.datetime.now()
+    current_date_str = current_date_time.strftime("%Y-%m-%d %H:%M:%S")
+    print(user)
+    print(id)
+    cursor.execute("INSERT INTO StudentApplication(studentName, studentID, date, companyId) VALUES (%s, %s, %s, %s)",(session['user'][1],session['user'][0],current_date_str,id))
+    db_conn.commit()
+    cursor.close()
+    return redirect(url_for('CompanyDetailsPage', id=id))
+
+
+
 
 #functions 
 @app.route("/StudentLoginProcess", methods=['POST'])
@@ -519,6 +542,7 @@ def LoadJob(id):
             # Fetch the job details from the database based on the provided 'id'
         cursor.execute('SELECT * FROM Job WHERE jobID = %s', (id))
         job = cursor.fetchone()
+        cursor.close()
         if job:
             # Render the edit job form with the fetched job details
             return render_template('EditJob.html', job=job, id=id)
@@ -589,7 +613,7 @@ def rejectStudentApplication(id):
     cursor.execute('UPDATE StudentApplication SET appStatus = %s WHERE studentID = %s', (status_change, id))
     flash('Student Application Rejected Successfully')
     db_conn.commit() 
-    # cursor.close()
+    cursor.close()
     return redirect(url_for('Application'))
 
         
@@ -601,7 +625,7 @@ def approveStudentApplication(id):
     cursor.execute('UPDATE StudentApplication SET appStatus = %s WHERE studentID = %s', (status_change, id))
     flash('Student Application Approved Successfully', 'success')
     db_conn.commit() 
-    # cursor.close()
+    cursor.close()
     return redirect(url_for('Application'))
     
 
