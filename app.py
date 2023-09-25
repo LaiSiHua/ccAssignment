@@ -298,8 +298,13 @@ def UploadDocument():
         company = request.files['company-pdf-upload']
         parent = request.files['parent-pdf-upload']
         cursor = db_conn.cursor()
-        insert_sql = "INSERT INTO leave_application (Employee_ID, Submission_Date, Reason_of_Leave, Total_Day) VALUES (%s, %s, %s, %s)"
+       
         #if resume.filename != "":
+
+        resume_url = session["user"][13]  # Initialize 
+        parent_url = session["user"][16]  # Initialize 
+        indemnity_url = session["user"][14]  # Initialize 
+        company_url = session["user"][15]  # Initialize 
         try:
             resume_name_in_s3 = userName + "_" + userStudentId + "_resume"
             parent_name_in_s3 = userName + "_" + userStudentId + "_parent"
@@ -309,12 +314,15 @@ def UploadDocument():
 
             try:
                 bucket = s3.Bucket(custombucket)
-
                 # Upload objects to the S3 bucket
-                bucket.put_object(Key=resume_name_in_s3, Body=resume)
-                bucket.put_object(Key=company_name_in_s3, Body=company)
-                bucket.put_object(Key=indemnity_name_in_s3, Body=indemnity)
-                bucket.put_object(Key=parent_name_in_s3, Body=parent)
+                if resume.filename != "":
+                    bucket.put_object(Key=resume_name_in_s3, Body=resume)
+                if company.filename != "":
+                    bucket.put_object(Key=company_name_in_s3, Body=company)
+                if indemnity.filename != "":
+                    bucket.put_object(Key=indemnity_name_in_s3, Body=indemnity)
+                if parent.filename != "":
+                    bucket.put_object(Key=parent_name_in_s3, Body=parent)
                 bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
                 s3_location = (bucket_location['LocationConstraint'])
                 if s3_location is None:
@@ -322,16 +330,44 @@ def UploadDocument():
                 else:
                     s3_location = '-' + s3_location
 
-                object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                    s3_location,
-                    custombucket,
-                    resume_name_in_s3)
+                if resume.filename != "":
+                    resume_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                        s3_location,
+                        custombucket,
+                        resume_name_in_s3)
+                if company.filename != "":
+                    company_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                        s3_location,
+                        custombucket,
+                        company_name_in_s3)
+                if parent.filename != "":
+                    parent_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                        s3_location,
+                        custombucket,
+                        parent_name_in_s3)
+                if indemnity.filename != "":
+                    indemnity_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                        s3_location,
+                        custombucket,
+                        indemnity_name_in_s3)
 
             except Exception as e:
                 return str(e)
+            
+            finally:
+                try:
+                   
+                    cursor.execute('UPDATE Student SET resume = %s, urlAcceptance = %s, urlLetter = %s WHERE urlAcknowledgement= %s',
+                    (resume_url,company_url, indemnity_url, parent_url))
+
+
+                    flash('Uploaded Successfully')
+                except Exception as e:
+                    return str(e)  
 
         finally:
             cursor.close()
+            return redirect(url_for('Profile'))
 
     else:
         return redirect(url_for('Login'))
