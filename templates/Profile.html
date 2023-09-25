@@ -209,7 +209,7 @@
         </table>
        
      
-      <div id="action-buttons" style="display: none;">
+      <div id="action-buttons">
         <button id="submit-button">Submit</button>
         <button id="cancel-button" onclick="cancelUpload()">Cancel</button>
       </div>
@@ -256,7 +256,7 @@
           pdfPreviewLink.href = URL.createObjectURL(selectedFile);
 
           // Show the "Submit" and "Cancel" buttons when a file is selected
-          document.getElementById('action-buttons').style.display = 'block';
+          // document.getElementById('action-buttons').style.display = 'block';
         } else {
           // If no file is selected, clear the display and hide the buttons
           fileNameDisplay.textContent = '';
