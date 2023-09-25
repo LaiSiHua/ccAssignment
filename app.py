@@ -359,7 +359,7 @@ def UploadDocument():
                    
                     cursor.execute('UPDATE Student SET resume = %s, urlAcceptance = %s, urlLetter = %s , urlAcknowledgement= %s  WHERE studentID = %s',
                     (resume_url,company_url, indemnity_url, parent_url,session['user'][0]))
-
+                     db_conn.commit()
 
                     flash('Uploaded Successfully')
                 except Exception as e:
