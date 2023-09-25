@@ -264,6 +264,7 @@ def Logout():
 
 @app.route('/StudentLogin')
 def StudentLogin():
+
     return render_template('StudentLogin.html')
 
 @app.route("/StudentSignUp")
@@ -390,8 +391,10 @@ def StudentLoginProcess():
 
     else:
         print("Invalid Email Address or Password")
+
         
 
+    flash('Login success, Welcome!')
     return redirect(url_for('StudentLogin'))
 
 @app.route("/StudentSignUpProcess", methods=['POST'])
@@ -591,7 +594,9 @@ def deleteJob(id):
 def Application():
     cursor = db_conn.cursor()
     status_value = 'pending'
-    cursor.execute('SELECT * FROM StudentApplication WHERE appStatus = %s', status_value)
+    companyId = session['user'][0]
+    print(companyId)
+    cursor.execute('SELECT * FROM StudentApplication WHERE appStatus = %s AND companyId = %s', (status_value,companyId))
     data = cursor.fetchall()
     cursor.close()
     

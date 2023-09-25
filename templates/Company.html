@@ -37,6 +37,37 @@
 		"logo": "images/header.png"
 }</script>
 
+
+<style>
+
+.company-item {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Create the hidden pseudo-element */
+/* include the shadow for the end state */
+.company-item::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.company-item:hover {
+  transform: scale(1.05, 1.05);
+}
+
+/* Fade in the pseudo-element with the bigger shadow */
+.company-item:hover::after {
+  opacity: 1;
+}
+
+</style>
+
 </head>
 
 <body class="u-body u-xl-mode" data-lang="en">
@@ -106,14 +137,14 @@
     </div>
     <h3 class="u-align-center u-custom-font u-font-montserrat u-text u-text-1">COMPANY LIST</h3>
     <div class="u-list u-list-1" style="width: 70%;">
-      <div class="u-repeater u-repeater-1">
+      <div style="min-height:10vh" class="u-repeater u-repeater-1">
 
         {% for company in companies %}
         <div class="u-container-style u-list-item u-repeater-item">
-          <div class="u-container-layout u-similar-container u-container-layout-9">
-            <div style="border: 1px solid #efefef;">
+          <div class="u-container-layout webserveru-similar-container u-container-layout-9">
+            <div class="company-item" style="border: 1px solid #efefef;">
               <img alt="" class="u-expanded-width u-image u-image-default u-image-9" data-image-width="2000"
-                data-image-height="1333" src="{{company[10]}}">
+                data-image-height="1333" src="{{company[10]}}" loading="lazy">
 
               <div style="padding: 5% 3%;">
                 <h4 class="">{{company[1]}}</h3>
