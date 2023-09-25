@@ -67,8 +67,9 @@ def AddAdmin():
       name = request.form['name']
       email = request.form['email']
       contactNum = request.form['contactNum']
+      password = request.form['password']
       
-      insert_sql = "INSERT INTO Admin VALUES (%s, %s, %s)"
+      insert_sql = "INSERT INTO Admin VALUES (%s, %s, %s, %s)"
       cursor = db_conn.cursor()
       cursor.execute(insert_sql, (name, email, contactNum))
       flash('Admin Added Successfully')
