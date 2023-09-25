@@ -357,7 +357,7 @@ def UploadDocument():
             finally:
                 try:
                    
-                    cursor.execute('UPDATE Student SET resume = %s, urlAcceptance = %s, urlLetter = %s WHERE urlAcknowledgement= %s  WHERE studentID = %s',
+                    cursor.execute('UPDATE Student SET resume = %s, urlAcceptance = %s, urlLetter = %s , urlAcknowledgement= %s  WHERE studentID = %s',
                     (resume_url,company_url, indemnity_url, parent_url,session['user'][0]))
 
 
