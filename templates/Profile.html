@@ -162,7 +162,11 @@
             <tr style="height: 56px;">
               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">Resume&nbsp;</td>
               <td class="u-align-justify u-border-1 u-border-grey-dark-1 u-table-cell">
+                {% if user[13] %}
+                <a href="{{user[13]}}">View &nbsp; &nbsp; &nbsp;</a>
+                {% endif %}
                 <input type="file" name='resume-pdf-upload' id="resume-pdf-upload" accept=".pdf">
+             
                 <a id="resume-pdf-preview-link" href="#" target="_blank" style="display: none;">Preview PDF</a>
               </td>
             </tr>
@@ -171,9 +175,9 @@
               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">FOCS_STUDF01 Indemnity Letter&nbsp;</td>
               <td class="u-align-justify u-border-1 u-border-grey-dark-1 u-table-cell">
                 <input type="file" name="indemnity-pdf-upload" id="indemnity-pdf-upload" accept=".pdf">
-                
-
-                <span id="indemnity-selected-file-name"></span>
+                {% if user[14] %}
+                <a href="{{user[14]}}">View &nbsp; &nbsp; &nbsp;</a>
+                {% endif %}
                 <a id="indemnity-pdf-preview-link" href="#" target="_blank" style="display: none;">Preview PDF</a>
               </td>
             </tr>
@@ -182,7 +186,9 @@
               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">FOCS_EmpF02 Company Acceptance&nbsp;</td>
               <td class="u-align-justify u-border-1 u-border-grey-dark-1 u-table-cell">
                 <input type="file" name="company-pdf-upload" id="company-pdf-upload" accept=".pdf">
-
+                {% if user[15] %}
+                <a href="{{user[15]}}">View &nbsp; &nbsp; &nbsp;</a>
+                {% endif %}
                 <a id="company-pdf-preview-link" href="#" target="_blank" style="display: none;">Preview PDF</a>
               </td>
             </tr>
@@ -190,7 +196,11 @@
             <tr style="height: 56px;">
               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">FOCS_STUDF02 Parent Acknowledgement;</td>
               <td class="u-align-justify u-border-1 u-border-grey-dark-1 u-table-cell">
+                {% if user[16] %}
+                <a href="{{user[16]}}">View &nbsp; &nbsp; &nbsp;</a>
+                {% endif %}
                 <input type="file" name="parent-pdf-upload" id="parent-pdf-upload" accept=".pdf">
+               
                 <a id="parent-pdf-preview-link" href="#" target="_blank" style="display: none;">Preview PDF</a>
               </td>
             </tr>
