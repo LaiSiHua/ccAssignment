@@ -39,6 +39,25 @@
     .btn-logout {
       color: inherit;
     }
+
+    .u-nav-item {
+      font-size: medium;
+    }
+
+    .submitBtn {
+      background-color: #478ac9;
+      color: white;
+      margin-top: 20px;
+      position: relative;
+      padding: 10px 30px 10px 30px;
+      border: none;
+    }
+
+    .submitBtn:hover {
+      text-decoration: none;
+      color: white;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -64,7 +83,7 @@
           </svg>
         </a>
       </div>
-      <div class="u-custom-menu u-nav-container">
+      <div class="u-custom-menu u-nav-container" style="margin-right: 210px;">
         <ul class="u-nav u-unstyled u-nav-1">
           <li class="u-nav-item">
             <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
@@ -107,11 +126,10 @@
     </nav><img class="u-image u-image-contain u-image-default u-image-2"
       src="{{ url_for('static', filename='images/TARUMT1.jpg') }}" alt="" data-image-width="416"
       data-image-height="121">
-    <div class="u-border-1 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-1"></div>
   </header>
   <section class="u-clearfix u-section-1" id="sec-49e2">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <h2 class="u-text u-text-default u-text-1">Edit Job</h2>
+      <h4 class="u-text u-text-default u-text-1">Edit Job</h4>
       <div class="u-form u-form-1">
         <div class="u-form u-form-1">
           <form action="{{ url_for('EditJob') }}" method="POST" enctype="multipart/form-data" style="padding: 10px;">
@@ -132,7 +150,7 @@
                 class="u-input u-input-rectangle" value="{{ job[3] }}">
             </div>
             <div class="u-align-left u-form-group u-form-submit">
-              <button type="submit">Submit</button>
+              <button type="submit" class="submitBtn">Submit</button>
             </div>
 
           </form>

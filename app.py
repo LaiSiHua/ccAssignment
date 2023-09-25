@@ -566,6 +566,7 @@ def EditJob():
 
     cursor.execute('UPDATE Job SET jobTitle = %s, jobLocation = %s, minReq = %s WHERE jobID = %s',
                     (job_title, job_location, min_req, job_id))
+    flash('Job Edited Successfully')
     db_conn.commit()
 
 

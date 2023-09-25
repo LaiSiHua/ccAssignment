@@ -33,15 +33,6 @@
 		"logo": "images/default-logo.jpg"
 }</script>
 
-  <style>
-    .btn-logout {
-      color: inherit;
-    }
-
-    .u-nav-item {
-      font-size: medium;
-    }
-  </style>
 </head>
 
 <body class="u-body u-xl-mode" data-lang="en">
@@ -112,7 +103,8 @@
   </header>
   <section class="u-clearfix u-section-1" id="sec-3182">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <h4 class="u-align-center u-text u-text-default u-text-1" style="margin-top: 20px; text-decoration: underline;margin-bottom: 10px;">Jobs</h4>
+      <h4 class="u-align-center u-text u-text-default u-text-1"
+        style="margin-top: 20px; text-decoration: underline;margin-bottom: 10px;">Jobs</h4>
       <div class="u-expanded-width u-table u-table-responsive u-table-1">
         <table class="u-table-entity">
           <colgroup>
@@ -148,6 +140,17 @@
       </div>
       <a href="{{ url_for('CreateJobs')}}"
         class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-7">Create Job</a>
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="popup-msg" role="alert" style="background-color: #D1FFBD;">
+        <span class="msg">{{ message }}</span>
+        <input type="button" class="close-msg" value=&#10006 onclick=delete_flash(this)>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
     </div>
   </section>
 
@@ -169,6 +172,39 @@
       <span>Website Builder Software</span>
     </a>.
   </section>
+
+  <style>
+    .btn-logout {
+      color: inherit;
+    }
+
+    .u-nav-item {
+      font-size: medium;
+    }
+
+    .popup-msg {
+      background-color: #D1FFBD;
+      padding: 10px 30px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .msg {
+      font-size: 14px;
+      color: #006100;
+      font-weight: bold;
+    }
+
+    .close-msg {
+      border: none;
+      background-color: #D1FFBD;
+      float: right;
+      color: #006100;
+      font-size: 10px;
+      padding-top: 5px;
+      margin-left: 20px;
+    }
+  </style>
 
 </body>
 
