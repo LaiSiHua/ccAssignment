@@ -151,20 +151,18 @@
       </table>
     </div>
     <div class="u-table u-table-responsive u-table-1">
-      <form>
+      <form action="/UploadDocument" autocomplete="on" method="POST" enctype="multipart/form-data">
         <table class="u-table-entity" style="margin-top: 40px;">
           <colgroup>
             <col width="28.2%">
             <col width="71.8%">
           </colgroup>
           <tbody class="u-table-body">
+           
             <tr style="height: 56px;">
               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">Resume&nbsp;</td>
               <td class="u-align-justify u-border-1 u-border-grey-dark-1 u-table-cell">
-                <input type="file" id="resume-pdf-upload" accept=".pdf" style="display: none;">
-                <button onclick="document.getElementById('resume-pdf-upload').click()">Upload PDF</button>
-
-                <span id="resume-selected-file-name"></span>
+                <input type="file" name='resume-pdf-upload' id="resume-pdf-upload" accept=".pdf">
                 <a id="resume-pdf-preview-link" href="#" target="_blank" style="display: none;">Preview PDF</a>
               </td>
             </tr>
@@ -172,8 +170,8 @@
             <tr style="height: 56px;">
               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">FOCS_STUDF01 Indemnity Letter&nbsp;</td>
               <td class="u-align-justify u-border-1 u-border-grey-dark-1 u-table-cell">
-                <input type="file" id="indemnity-pdf-upload" accept=".pdf" style="display: none;">
-                <button onclick="document.getElementById('indemnity-pdf-upload').click()">Upload PDF</button>
+                <input type="file" name="indemnity-pdf-upload" id="indemnity-pdf-upload" accept=".pdf">
+                
 
                 <span id="indemnity-selected-file-name"></span>
                 <a id="indemnity-pdf-preview-link" href="#" target="_blank" style="display: none;">Preview PDF</a>
@@ -183,10 +181,8 @@
             <tr style="height: 56px;">
               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">FOCS_EmpF02 Company Acceptance&nbsp;</td>
               <td class="u-align-justify u-border-1 u-border-grey-dark-1 u-table-cell">
-                <input type="file" id="company-pdf-upload" accept=".pdf" style="display: none;">
-                <button onclick="document.getElementById('company-pdf-upload').click()">Upload PDF</button>
+                <input type="file" name="company-pdf-upload" id="company-pdf-upload" accept=".pdf">
 
-                <span id="company-selected-file-name"></span>
                 <a id="company-pdf-preview-link" href="#" target="_blank" style="display: none;">Preview PDF</a>
               </td>
             </tr>
@@ -194,23 +190,20 @@
             <tr style="height: 56px;">
               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">FOCS_STUDF02 Parent Acknowledgement;</td>
               <td class="u-align-justify u-border-1 u-border-grey-dark-1 u-table-cell">
-                <input type="file" id="parent-pdf-upload" accept=".pdf" style="display: none;">
-                <button onclick="document.getElementById('parent-pdf-upload').click()">Upload PDF</button>
-
-                <span id="parent-selected-file-name"></span>
+                <input type="file" name="parent-pdf-upload" id="parent-pdf-upload" accept=".pdf">
                 <a id="parent-pdf-preview-link" href="#" target="_blank" style="display: none;">Preview PDF</a>
               </td>
             </tr>
-
-
-
+         
           </tbody>
         </table>
-        <div id="action-buttons" style="display: none;">
-          <button id="submit-button">Submit</button>
-          <button id="cancel-button" onclick="cancelUpload()">Cancel</button>
-        </div>
-      </form>
+       
+     
+      <div id="action-buttons" style="display: none;">
+        <button id="submit-button">Submit</button>
+        <button id="cancel-button" onclick="cancelUpload()">Cancel</button>
+      </div>
+    </form>
     </div>
 
     <script>

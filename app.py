@@ -305,10 +305,7 @@ def UploadDocument():
             company_name_in_s3 = userName + "_" + userStudentId + "_company"
             s3 = boto3.resource('s3')
 
-   
-
             try:
-                print('pass0')
                 bucket = s3.Bucket(custombucket)
 
                 # Upload objects to the S3 bucket
@@ -316,16 +313,13 @@ def UploadDocument():
                 bucket.put_object(Key=company_name_in_s3, Body=company)
                 bucket.put_object(Key=indemnity_name_in_s3, Body=indemnity)
                 bucket.put_object(Key=parent_name_in_s3, Body=parent)
-                print('pass1')
                 bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
                 s3_location = (bucket_location['LocationConstraint'])
-                print('pass2')
                 if s3_location is None:
                     s3_location = ''
                 else:
                     s3_location = '-' + s3_location
 
-                print('pass3')
                 object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
                     s3_location,
                     custombucket,
@@ -384,18 +378,15 @@ def StudentLoginProcess():
     if student:
         if student[17] != 'pending':
             session["user"] = student
-            print("Login success")
+            flash('Login success, Welcome' + student[2] + "!")
             return redirect(url_for('Documents'))
         else:
             flash('Account is still pending for approval')
+            return redirect(url_for('StudentLogin'))
 
     else:
-        print("Invalid Email Address or Password")
-
-        
-
-    flash('Login success, Welcome!')
-    return redirect(url_for('StudentLogin'))
+        flash('Invalid Username or password')
+        return redirect(url_for('StudentLogin'))
 
 @app.route("/StudentSignUpProcess", methods=['POST'])
 def StudentSignUpProcess():
